@@ -6,7 +6,10 @@
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="mediaqueries.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Document</title>
 </head>
 <body>
@@ -77,8 +80,8 @@
             </div>
         </div>
     </section>
-    
 
+    <!-- MAIN IMAGE SECTION -->
     <div class="MainImage">
         <img src="./asset/main.png" alt="Chayote">
         <div class="imagetext">
@@ -90,8 +93,92 @@
         </div>      
     </div>
 
+    <!-- CAROUSEL SECTION MOVED HERE -->
+    <section class="Carossuel">
+        <div class="container swiper">
+            <div class="card-wrapper">
+                <ul class="card-list swiper-wrapper">
+                    <li class="card-item swiper-slide">
+                        <a href="#" class="card-link">
+                            <img  src="asset/museo-de-los-ninos-costa-rica.jpg" alt="Card image" class="card-image"> 
+                            <p class="bagde">Museo de los niños</p>
+                            <h2 class="card-title">Descripcion aca</h2>
+                            <button class="card-button material-symbols-rounded">
+                                arrow_forward
+                            </button>
+                        </a>
+                    </li>
+    
+                    <li class="card-item swiper-slide">
+                        <a href="#" class="card-link">
+                            <img  src="asset/museo-del-jade-costa-rica.jpg" alt="Card image" class="card-image"> 
+                            <p class="bagde">Museo del Jade</p>
+                            <h2 class="card-title"></h2>
+                            <button class="card-button material-symbols-rounded">
+                                arrow_forward
+                            </button>
+                        </a>
+                    </li>
+    
+                    <li class="card-item swiper-slide">
+                        <a href="#" class="card-link">
+                            <img  src="asset/museo-nacional.jpg" alt="Card image" class="card-image"> 
+                            <p class="bagde">Museo Nacional</p>
+                            <h2 class="card-title"></h2>
+                            <button class="card-button material-symbols-rounded">
+                                arrow_forward
+                            </button>
+                        </a>
+                    </li>
+    
+                    <li class="card-item swiper-slide">
+                        <a href="#" class="card-link">
+                            <img  src="asset/museum-of-contemporary.jpg" alt="Card image" class="card-image"> 
+                            <p class="bagde">Museo de Arte y Diseño Contemporáneo</p>
+                            <h2 class="card-title"></h2>
+                            <button class="card-button material-symbols-rounded">
+                                arrow_forward
+                            </button>
+                        </a>
+                    </li>
+    
+                    <li class="card-item swiper-slide">
+                        <a href="#" class="card-link">
+                            <img  src="asset/san-jose-central-market-entrance.jpg" alt="Card image" class="card-image"> 
+                            <p class="bagde">Mercado Central</p>
+                            <h2 class="card-title"></h2>
+                            <button class="card-button material-symbols-rounded">
+                                arrow_forward
+                            </button>
+                        </a>
+                    </li>
+    
+                    <li class="card-item swiper-slide">
+                        <a href="#" class="card-link">
+                            <img  src="asset/cruz-alajuelita-sitio-masacre_lncima20160401_0149_9.jpg" alt="Card image" class="card-image"> 
+                            <p class="bagde">Cruz de Alajuelita</p>
+                            <h2 class="card-title"></h2>
+                            <button class="card-button material-symbols-rounded">
+                                arrow_forward
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+    
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+                
+                <!-- If we need navigation buttons -->
+                <div class="swiper-slide-button swiper-button-prev"></div>
+                <div class="swiper-slide-button swiper-button-next"></div>
+                
+    
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
 

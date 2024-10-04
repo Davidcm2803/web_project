@@ -46,17 +46,49 @@ loginBtn.addEventListener("click", (e) => {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const homeSection = document.querySelector('.home');
+    const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.navbar a');
 
     window.addEventListener('scroll', function() {
-        const homeTop = homeSection.offsetTop;
-        const homeHeight = homeSection.offsetHeight;
-        const scrollPosition = window.scrollY;
+        let scrollPosition = window.scrollY;
 
-        // Si el usuario está en la sección Home, activamos el enlace Home
-        if (scrollPosition >= homeTop && scrollPosition < (homeTop + homeHeight)) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            document.querySelector('.navbar a[href="#"]').classList.add('active');
-        }
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < (sectionTop + sectionHeight)) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                const activeLink = document.querySelector(`.navbar a[href="#${section.id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
     });
+});
+
+
+new Swiper(".card-wrapper", {
+    loop: true,
+    spaceBetween: 30,
+  
+    // If we need pagination
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      dynamicBullets: true
+    },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  
+    breakpoints: {
+      0: { slidesPerView: 1 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    },
+  });
+
