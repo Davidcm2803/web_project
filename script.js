@@ -1,12 +1,12 @@
 // Importar Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-analytics.js";
 import { 
     getAuth, 
     signInWithEmailAndPassword, 
-    createUserWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
     signOut 
 } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore,setDoc,doc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -19,135 +19,28 @@ const firebaseConfig = {
     measurementId: "G-DG1EX6H6PQ"
 };
 
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-
-console.log("Firebase ha sido inicializado correctamente.");
-
-// Función para manejar el cambio de estado de autenticación
-auth.onAuthStateChanged(user => {
-    const formContainer = document.querySelector(".form_container");
-    const home = document.querySelector(".home");
-
-    if (user) {
-        // Usuario autenticado
-        console.log("Usuario logueado:", user.email);
-
-        // Limpiar formularios si el usuario está logueado
-        const loginForm = document.getElementById('login-form');
-        if (loginForm) loginForm.reset(); // Limpiar formulario de login
-
-        // Cerrar el formulario de login automáticamente
-        if (formContainer) {
-            formContainer.classList.remove("show"); // Ocultar el contenedor del formulario
-        }
-
-        // Opcional: cambiar el estado visual (por ejemplo, mostrar contenido de usuario)
-        home.classList.add("logged-in");
-    } else {
-        // Usuario no autenticado
-        console.log("No hay usuario logueado.");
-        home.classList.remove("logged-in");
-    }
-});
-
 // Escuchar cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
-
-    // Seleccionar el formulario de registro
-    const signupForm = document.getElementById('signup-form');
-    const signupErrorMessageDiv = document.getElementById('signup-error-message'); // Div de error para el formulario de registro
-
-    // Escuchar el evento de envío del formulario de registro
-    if (signupForm) {
-        signupForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById('signup-email').value.trim();
-            const password = document.getElementById('signup-password').value.trim();
-            const confirmPassword = document.getElementById('confirm-password').value.trim();
-            signupErrorMessageDiv.textContent = '';
-
-            if (password !== confirmPassword) {
-                signupErrorMessageDiv.textContent = "Las contraseñas no coinciden.";
-                return;
-            }
-
-            if (password.length < 6) {
-                signupErrorMessageDiv.textContent = "La contraseña debe tener al menos 6 caracteres.";
-                return;
-            }
-
-            createUserWithEmailAndPassword(auth, email, password)
-              .then((userCredential) => {
-                  alert("Cuenta creada correctamente.");
-                  signupForm.reset();
-
-                  // Cambiar a login automáticamente
-                  const formContainer = document.querySelector(".form_container");
-                  if (formContainer) {
-                      formContainer.querySelector('.signup_form').classList.remove('active');  // Ocultar signup
-                      formContainer.querySelector('.login-form').classList.add('active');  // Mostrar login
-                  }
-              })
-              .catch((error) => {
-                  let errorMessage;
-                  switch (error.code) {
-                      case 'auth/email-already-in-use':
-                          errorMessage = 'El correo electrónico ya está en uso.';
-                          break;
-                      case 'auth/invalid-email':
-                          errorMessage = 'El correo electrónico es inválido.';
-                          break;
-                      case 'auth/weak-password':
-                          errorMessage = 'La contraseña es demasiado débil.';
-                          break;
-                      default:
-                          errorMessage = 'Ocurrió un error al crear la cuenta.';
-                  }
-                  signupErrorMessageDiv.textContent = `Error: ${errorMessage}`;
-              });
-        });
-    }
 
     // Selección de elementos para la navegación del formulario
     const formOpenBtn = document.querySelector("#form-open"),
           home = document.querySelector(".home"),
           formContainer = document.querySelector(".form_container"),
           formCloseBtn = document.querySelector(".form_close"),
-          signupBtn = document.querySelector("#show-signup-form"),  // Este es el botón para mostrar el formulario de registro
-          loginBtn = document.querySelector("#show-login-form"),    // Este es el botón para mostrar el formulario de login
-          pwShowHide = document.querySelectorAll(".fa-eye-slash, .fa-eye");
+          signupBtn = document.querySelector("#show-signup-form"),  // Botón para mostrar el formulario de registro
+          loginBtn = document.querySelector("#show-login-form");    // Botón para mostrar el formulario de login
 
     // Mostrar el formulario al hacer clic en el ícono de usuario
-    if (formOpenBtn && home) {
+    if (formOpenBtn) {
         formOpenBtn.addEventListener("click", () => {
             home.classList.add("show");
         });
     }
 
     // Cerrar el formulario al hacer clic en el ícono de cerrar
-    if (formCloseBtn && home) {
+    if (formCloseBtn) {
         formCloseBtn.addEventListener("click", () => {
             home.classList.remove("show");
-        });
-    }
-
-    // Mostrar/ocultar la contraseña
-    if (pwShowHide) {
-        pwShowHide.forEach((icon) => {
-            icon.addEventListener("click", () => {
-                let getPwInput = icon.parentElement.querySelector("input");
-                if (getPwInput.type == "password") {
-                    getPwInput.type = "text";
-                    icon.classList.replace("fa-eye-slash", "fa-eye");
-                } else {
-                    getPwInput.type = "password";
-                    icon.classList.replace("fa-eye", "fa-eye-slash");
-                }
-            });
         });
     }
 
@@ -168,47 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
             formContainer.querySelector('.login-form').classList.add('active'); // Mostrar login
         });
     }
+});
 
-    // Seleccionar el formulario de inicio de sesión
-    const loginForm = document.getElementById('login-form');
-    const loginErrorMessageDiv = document.getElementById('login-error-message');
-
-    // Iniciar sesión
-    if (loginForm && loginErrorMessageDiv) {
-        loginForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value.trim();
-            loginErrorMessageDiv.textContent = '';
-
-            signInWithEmailAndPassword(auth, email, password)
-              .then((userCredential) => {
-                  alert("Inicio de sesión exitoso.");
-                  loginForm.reset(); // Limpiar los campos después de un inicio de sesión exitoso
-
-                  // Cerrar el formulario de login
-                  const formContainer = document.querySelector(".form_container");
-                  if (formContainer) {
-                      formContainer.classList.remove("show"); // Ocultar el formulario
-                  }
-              })
-              .catch((error) => {
-                  let errorMessage;
-                  switch (error.code) {
-                      case 'auth/user-not-found':
-                          errorMessage = 'No se reconoce este correo, registra una cuenta nueva.';
-                          break;
-                      case 'auth/wrong-password':
-                          errorMessage = 'Contraseña incorrecta.';
-                          break;
-                      default:
-                          errorMessage = 'Error al iniciar sesión. Intenta de nuevo.';
-                  }
-                  loginErrorMessageDiv.textContent = `Error: ${errorMessage}`;
-              });
-        });
-    }
 
     // Cerrar sesión
     const logoutBtn = document.getElementById('logout-btn');
@@ -223,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-});
+
 
 
 
