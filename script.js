@@ -386,6 +386,111 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+function generateStars(count) {
+    return '★'.repeat(count) + '☆'.repeat(5 - count);
+}
+
+// Fetch and display reviews
+async function displayReviews() {
+    try {
+        if (typeof jQuery === 'undefined') {
+            await loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
+        }
+        if (typeof $.fn.slick === 'undefined') {
+            await Promise.all([
+                loadScript('https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js'),
+                loadCSS('https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css'),
+                loadCSS('https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css')
+            ]);
+        }
+
+
+        const heroContainer = document.querySelector('.hero-container');
+        if (!heroContainer) {
+            const container = document.createElement('div');
+            container.className = 'hero-container';
+            const image = document.querySelector('.hero-image');
+            image.parentNode.insertBefore(container, image);
+            container.appendChild(image);
+        }
+
+        // Create overlay if not exists
+        let reviewsOverlay = document.querySelector('.reviews-overlay');
+        if (!reviewsOverlay) {
+            reviewsOverlay = document.createElement('div');
+            reviewsOverlay.className = 'reviews-overlay';
+            reviewsOverlay.innerHTML = '<div id="reviews-carousel"></div>';
+            document.querySelector('.hero-container').appendChild(reviewsOverlay);
+        }
+
+        const reviewsCarousel = document.getElementById('reviews-carousel');
+        reviewsCarousel.innerHTML = ''; // Clear existing content
+        
+        const reviewsRef = collection(db, 'reseñas');
+        const snapshot = await getDocs(reviewsRef);
+        
+        snapshot.forEach(doc => {
+            const review = doc.data();
+            const slide = document.createElement('div');
+            slide.classList.add('review-slide');
+            
+            slide.innerHTML = `
+                <h3>${review.name}</h3>
+                <div class="review-stars">${generateStars(review.stars)}</div>
+                <p>${review.text}</p>
+            `;
+            
+            reviewsCarousel.appendChild(slide);
+        });
+
+        // Initialize Slick Carousel
+        $(reviewsCarousel).slick({
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2500,
+            arrows: true
+        });
+
+    } catch (error) {
+        console.error("Error fetching reviews: ", error);
+    }
+}
+
+function loadCSS(url) {
+    return new Promise((resolve, reject) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = url;
+        link.onload = resolve;
+        link.onerror = reject;
+        document.head.appendChild(link);
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', displayReviews);
+
+export function reloadReviews() {
+    displayReviews();
+}
+
+
+
+
 
 
 

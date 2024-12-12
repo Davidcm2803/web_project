@@ -1,28 +1,29 @@
-/* Global Styles */
-* {
-  font-family: "Nunito", sans-serif;
-}
-body {
-  margin: 0;
-  padding: 0;
-  background: #f9f9f9;
-  font-family: "Nunito", sans-serif;
-}
-
 .section_resenas {
   background-image: url("/asset/vistaSanJose-transformed.jpeg");
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0px;
   background-size: cover;
   display: flex;
   height: 1000px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 200px;
+  gap: 40px;
+  overflow-x: hidden; 
+  box-sizing: border-box;
 }
-/* Resenas */
+
+.reviews-container,
+.swiper {
+  max-width: 500px; 
+  flex-shrink: 0;
+  margin: 0; 
+  height: auto;
+}
+
 .reviews-container {
+  position: relative;
+  left: -40px;
   font-size: 1.3em;
   border-radius: 4px;
   padding: 20px;
@@ -99,8 +100,9 @@ body {
   background-color: #d95a00;
 }
 
-/* Swiper hijo de perra */
 .swiper {
+  position: relative;
+  right: 80px;
   width: 100%;
   height: 700px;
   display: flex;
