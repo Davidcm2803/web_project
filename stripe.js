@@ -48,44 +48,34 @@ paymentForm.addEventListener('submit', async (event) => {
             // Array para guardar los productos comprados
             let productosComprados = [];
 
-            // Guardar cada producto en la colección de "compras"
             for (const docSnap of querySnapshot.docs) {
                 const data = docSnap.data();
                 console.log('Guardando producto en "compras":', data);
 
-                // Guardar el producto en la colección de "compras"
                 await setDoc(doc(db, 'compras', auth.currentUser.uid, 'comprados', docSnap.id), data);
-
-                // Guardar el producto en el array de productos comprados
                 productosComprados.push(data);
-
-                // Eliminar cada producto del carrito después de registrar la compra
                 await deleteDoc(docSnap.ref);
                 console.log('Producto eliminado del carrito:', docSnap.id);
             }
 
             console.log('Carrito vacío después del pago y productos guardados en compras');
 
-            // Mostrar el historial de compras
             mostrarHistorialDeCompras(productosComprados);
 
         } catch (error) {
             console.error("Error al vaciar el carrito y registrar la compra:", error);
         }
 
-        // Limpiar la UI del carrito
         document.getElementById('product-list').innerHTML = '';
         document.getElementById('cart-count').innerText = 'You have 0 items in your cart';
 
-        // Marcar como pago realizado
         marcarPagoRealizado();
     }
 });
 
-// Mostrar historial de compras (simple ejemplo)
 function mostrarHistorialDeCompras(productos) {
     const historialElement = document.getElementById('historial-compras');
-    historialElement.innerHTML = '';  // Limpiar historial anterior
+    historialElement.innerHTML = ''; 
 
     if (productos.length === 0) {
         historialElement.innerHTML = "<p>No hay productos para mostrar.</p>";
