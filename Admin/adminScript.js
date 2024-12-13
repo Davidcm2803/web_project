@@ -15,7 +15,7 @@ const db = firebase.firestore();
 
 const viajeForm = document.getElementById("viajeForm");
 const viajesContainer = document.getElementById("viajesContainer");
-let editingId = null; // Controla si estamos editando un viaje existente
+let editingId = null;
 
 // Función para guardar un nuevo viaje
 async function addViaje(viaje) {
@@ -70,26 +70,25 @@ viajeForm.addEventListener("submit", async (e) => {
   const viaje = { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles };
 
   if (editingId) {
-    // Si estamos editando, actualiza el viaje existente
     await updateViaje(editingId, viaje);
     editingId = null;
   } else {
-    // Si no, agrega un nuevo viaje
+
     await addViaje(viaje);
   }
 
   viajeForm.reset();
 });
 
-// Escuchar cambios en la colección de viajes
+
 db.collection("viajes").onSnapshot((querySnapshot) => {
-  viajesContainer.innerHTML = ""; // Limpiar el contenedor
+  viajesContainer.innerHTML = "";
 
   querySnapshot.forEach((doc) => {
     const { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles } = doc.data();
     const id = doc.id;
 
-    // Generar listas para actividades y fechas disponibles
+
     const actividadesLista = actividades
       .split(/\r?\n|,/) 
       .map((actividad) => `<li>${actividad.trim()}</li>`)
@@ -126,7 +125,6 @@ db.collection("viajes").onSnapshot((querySnapshot) => {
   });
 });
 
-// Función para empezar a editar un viaje
 function startEdit(id) {
   db.collection("viajes")
     .doc(id)
@@ -139,7 +137,6 @@ function startEdit(id) {
 
       const { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles } = doc.data();
 
-      // Llenar el formulario con los datos actuales
       viajeForm.titulo.value = titulo;
       viajeForm.descripcion.value = descripcion;
       viajeForm.precio.value = precio;
@@ -149,7 +146,7 @@ function startEdit(id) {
       viajeForm.ubicacion.value = ubicacion;
       viajeForm.fechasDisponibles.value = fechasDisponibles;
 
-      editingId = id; // Guardar el ID del viaje que se está editando
+      editingId = id;
     })
     .catch((error) => {
       console.error("Error al obtener el viaje:", error);
