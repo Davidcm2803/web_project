@@ -13,7 +13,12 @@ auth.onAuthStateChanged((user) => {
         }
     } else {
         console.log("No hay usuario autenticado.");
-        alert("Por favor, inicia sesión para ver tu carrito.");
+        Swal.fire({
+            imageUrl: "/asset/MemeAlerts/login-para-usar-carrito.jpg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "login-para-usar-carrito.jpg"
+        });
     }
 });
 
