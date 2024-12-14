@@ -96,7 +96,12 @@ loginForm.addEventListener("submit", (e) => {
         })
         .catch((error) => {
             console.error("Login error:", error.message);
-            alert("Invalid email or password. Please try again.");
+            Swal.fire({
+                imageUrl: "/asset/MemeAlerts/incorrect-login.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "incorrect-login.jpeg"
+            });
         });
 });
 
@@ -118,11 +123,23 @@ signupForm.addEventListener("submit", (e) => {
             const user = userCredential.user;
             console.log("User registered:", user);
             updateUserInterface(user);
-            alert(`Signup successful! Welcome, ${name}!`);
+            Swal.fire({
+                imageUrl: "/asset/MemeAlerts/sign-up-successful.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "sign-up-successful.jpeg"
+            });
         })
         .catch((error) => {
             console.error("Signup error:", error.message);
             signupErrorMessage.textContent = error.message;
+            Swal.fire({
+                title: "Signup error",
+                imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+            });
         });
 });
 
@@ -132,9 +149,23 @@ logoutButton.addEventListener("click", () => {
         .then(() => {
             console.log("User logged out.");
             updateUserInterface(null);
+            Swal.fire({
+                title: "Log out successful!",
+                imageUrl: "/asset/MemeAlerts/cerrar-sesion-yoda.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "cerrar-sesion-yoda.jpeg"
+            });
         })
         .catch((error) => {
             console.error("Logout error:", error.message);
+            Swal.fire({
+                title: "Logout error",
+                imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+            });
         });
 });
 
