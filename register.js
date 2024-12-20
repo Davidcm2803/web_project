@@ -93,10 +93,12 @@ loginForm.addEventListener("submit", (e) => {
             console.log("User logged in:", user);
             updateUserInterface(user);
             Swal.fire({
-                imageUrl: "/asset/MemeAlerts/sign-up-successful.jpeg",
+
+                imageUrl: "/asset/MemeAlerts/success-i-logged.jpg",
                 imageWidth: 400,
                 imageHeight: 200,
-                imageAlt: "sign-up-successful.jpeg"
+                imageAlt: "login-successful.jpeg"
+
             });
         })
         .catch((error) => {

@@ -41,9 +41,11 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
             fechaCreacion: new Date()
         });
         alert("Viaje guardado con éxito.");
+        //agregar meme
         document.getElementById("viajeForm").reset();
     } catch (error) {
         console.error("Error al guardar el viaje: ", error);
         alert("Hubo un error al guardar el viaje. Intenta nuevamente.");
+        //agregar meme
     }
 });
