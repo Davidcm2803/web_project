@@ -28,12 +28,24 @@ activities.forEach(activity => {
     activitiesList.appendChild(li);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date(); 
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); 
+    const day = String(today.getDate()).padStart(2, "0"); 
+    const todayFormatted = `${year}-${month}-${day}`;
+    const dateInput = document.getElementById("tour-date");
+    dateInput.setAttribute("min", todayFormatted); 
+});
+
+/*
 if (date) {
     const dateInput = document.getElementById('tour-date');
     dateInput.value = date;
     dateInput.setAttribute('min', date);
     dateInput.setAttribute('max', date);
 }
+*/
 
 const googleMapLink = document.getElementById('google-map-link');
 if (tourLocation) {
