@@ -44,7 +44,10 @@ paymentForm.addEventListener('submit', async (event) => {
             if (querySnapshot.empty) {
                 console.log('El carrito está vacío.');
                 alert('El carrito está vacío.');
+
+                //agregar meme Carro vacio
                 //agregar meme
+
                 return;
             }
 
