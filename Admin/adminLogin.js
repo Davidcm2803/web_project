@@ -1,4 +1,4 @@
-
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAowxVHvpmYoluiKnn_M5NMaku9EqcqPDk",
     authDomain: "web-project-f0c9c.firebaseapp.com",
@@ -9,21 +9,25 @@ const firebaseConfig = {
     measurementId: "G-DG1EX6H6PQ"
 };
 
+// Importar funciones de Firebase y Chart.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 
-
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-
+// Elementos del DOM
 const adminLoginForm = document.getElementById("sellerlogin");
 const adminEmailInput = document.getElementById("Email");
 const adminPasswordInput = document.getElementById("Password");
 const userDisplayName = document.getElementById("user-display-name");
 const logoutButton = document.getElementById("logout-btn");
+const refreshButton = document.getElementById("refreshButton");
 
-
+// Función de Login
 if (adminLoginForm) {
     adminLoginForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -50,7 +54,7 @@ if (adminLoginForm) {
     });
 }
 
-
+// Verificar estado de autenticación
 onAuthStateChanged(auth, (user) => {
     if (user) {
         if (userDisplayName) {
@@ -63,6 +67,7 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+// Función de Logout
 if (logoutButton) {
     logoutButton.addEventListener("click", () => {
         signOut(auth)
@@ -76,4 +81,5 @@ if (logoutButton) {
             });
     });
 }
+
 
