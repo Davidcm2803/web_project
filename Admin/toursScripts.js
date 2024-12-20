@@ -18,6 +18,7 @@ window.deleteViaje = function(viajeId) {
     db.collection("viajes").doc(viajeId).delete()
       .then(() => {
         alert("Viaje eliminado exitosamente.");
+        //agregar meme
       })
       .catch((error) => {
         console.error("Error al eliminar el viaje: ", error);

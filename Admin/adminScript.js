@@ -22,9 +22,11 @@ async function addViaje(viaje) {
   try {
     await db.collection("viajes").add(viaje);
     alert("Viaje guardado con éxito.");
+    //agregar meme
   } catch (error) {
     console.error("Error al guardar el viaje:", error);
     alert("Hubo un error al guardar el viaje.");
+    //agregar meme
   }
 }
 
@@ -33,9 +35,11 @@ async function updateViaje(id, viaje) {
   try {
     await db.collection("viajes").doc(id).update(viaje);
     alert("Viaje actualizado con éxito.");
+    //agregar meme
   } catch (error) {
     console.error("Error al actualizar el viaje:", error);
     alert("Hubo un error al actualizar el viaje.");
+    //agregar meme
   }
 }
 
@@ -64,6 +68,7 @@ viajeForm.addEventListener("submit", async (e) => {
 
   if (!imagenUrl || !ubicacion || !isValidUrl(imagenUrl) || !isValidUrl(ubicacion)) {
     alert("Por favor, ingresa URLs válidas para la imagen y la ubicación.");
+    //agregar meme
     return;
   }
 
@@ -132,6 +137,7 @@ function startEdit(id) {
     .then((doc) => {
       if (!doc.exists) {
         alert("El viaje no existe.");
+        //agregar meme
         return;
       }
 
@@ -151,6 +157,7 @@ function startEdit(id) {
     .catch((error) => {
       console.error("Error al obtener el viaje:", error);
       alert("Hubo un error al obtener los datos del viaje.");
+      //agregar meme
     });
 }
 

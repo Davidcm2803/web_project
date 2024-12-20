@@ -41,11 +41,13 @@ if (adminLoginForm) {
                     window.location.href = "/Admin/homeAdmin.html";
                 } else {
                     alert("Access denied. This portal is for administrators only.");
+                    //agregar meme
                 }
             })
             .catch((error) => {
                 console.error("Login error:", error.message);
                 alert("Invalid email or password. Please try again.");
+                //agregar meme
             });
     });
 }
@@ -73,6 +75,7 @@ if (logoutButton) {
             .catch((error) => {
                 console.error("Logout error:", error.message);
                 alert("Failed to log out. Please try again.");
+                //agregar meme
             });
     });
 }

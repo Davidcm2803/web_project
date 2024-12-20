@@ -63,12 +63,15 @@ document.querySelector('.order-button').addEventListener('click', async function
                 date: date
             });
             alert("Tour agregado al carrito");
+            //agregar meme
         } catch (error) {
             console.error("Error al agregar al carrito: ", error);
             alert("Hubo un error al agregar el tour al carrito. Intenta de nuevo.");
+            //agregar meme
         }
     } else {
         console.log("Usuario no logueado. No se puede agregar al carrito.");
         alert("Por favor, inicia sesión para agregar al carrito.");
+        //agregar meme
     }
 });
