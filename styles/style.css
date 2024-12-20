@@ -1,0 +1,1287 @@
+@import "/styles/login.css";
+@import "/styles/contacts.css";
+@import "/styles/mediaqueries.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+p{
+  font-weight: 300;
+}
+a {
+  text-decoration: none;
+}
+
+/* Estilos para el header */
+.header {
+  position: sticky;
+  height: 80px;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  transition: top 0.3s ease-in-out;
+}
+
+/* Logo */
+.box-logo {
+  background-color: orange;
+  width: 205px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 200px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  cursor: auto;
+}
+
+/* Navbar general */
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: 500px;
+
+  padding-bottom: 5px;
+}
+
+.navbar a {
+  font-size: 16px;
+  color: black;
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 20px;
+  position: relative;
+}
+
+
+.navbar a::before {
+  content: "";
+  position: absolute;
+  top: 170%;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: orange;
+  transition: width 0.3s ease, top 0.3s ease;
+}
+
+.navbar a:hover::before {
+  width: 100%;
+}
+
+.navbar a.active::before {
+  width: 100%;
+  top: 170%;
+}
+
+.navbar a.active {
+  color: orange;
+}
+
+.nav-icon {
+  height: 15px;
+  width: 15px;
+  margin-left: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+  pointer-events: auto; 
+}
+
+.nav-icon:hover {
+  color: orange;
+}
+
+
+/* Estilos para el dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 120%; /* Ajusta este valor según lo que necesites */
+  left: 0;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  z-index: 200;
+  padding: 20px; /* Espacio dentro del dropdown */
+}
+
+/* Mostrar el menú al hacer hover */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown:hover > a {
+  color: orange;
+}
+
+/* Contenido del dropdown */
+.dropdown-content {
+  display: flex;
+  padding: 10px;
+}
+
+/* Imagen en el dropdown */
+.dropdown-image {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+  padding: 10px;
+}
+
+/* Estilo para el texto del dropdown */
+.dropdown-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-text h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: orange;
+}
+
+.dropdown-text a {
+  color: black;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.dropdown-text a:hover {
+  color: orange;
+  text-decoration: underline;
+}
+
+.dropdown-text a::before {
+  content: none;
+}
+
+.dropdown > a::before {
+  top: 210%; 
+}
+
+
+/*Inicio con Imagen*/
+.home {
+  position: relative;
+  height: 7vh;
+  width: 100%;
+}
+
+.MainImage {
+  position: relative;
+  max-width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  height: 90vh;
+  margin-top: -80px;
+}
+
+
+/* Remove o estilo padrão do link dentro do botão */
+.mainButton a {
+  color: inherit; /* Herda a cor do botão */
+  text-decoration: none; /* Remove o sublinhado */
+  display: block; /* Faz com que o link ocupe todo o espaço do botão */
+  width: 100%;
+  height: 100%;
+}
+
+
+.MainImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imagetext {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+}
+.imagetext h3 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: rgb(254, 254, 254);
+  margin-bottom: -1px;
+}
+
+.imagetext p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.imagetext h1 {
+  font-size: 80px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.mainButton {
+  padding: 20px 30px;
+  background-color: orange;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  transition: 0.3s ease, color 0.3s ease;
+}
+
+.mainButton:hover {
+  background-color: #fff;
+  color: orange;
+}
+
+/*Titulo de Secciones*/
+.tittle-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.title-seccion {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 50px;
+  color: black;
+  font-weight: bolder;
+  margin-top: 70px;
+}
+
+.title-seccionA {
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 50px;
+  color: black;
+  font-weight: bolder;
+  margin-top: 10px;
+}
+
+
+.tittle-container p {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.orange-line-wrapper {
+  margin-top: 30px;
+}
+
+.orange-line {
+  height: 6px;
+  width: 50px;
+  background-color: orange;
+  margin: -3px auto;
+  margin-bottom: 20px;
+}
+
+/* Seccion Gallery */
+.Gallery {
+  padding: 20px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 250px;
+  grid-gap: 20px;
+  position: relative;
+}
+
+.Event {
+  position: relative;
+  overflow: hidden;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.Event img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.Event h3 {
+  position: absolute;
+  bottom: 60px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.Event .overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.Event .box-galery {
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  position: absolute;
+  left: 0;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.5s ease;
+  transform: translateX(-100%);
+  z-index: 3;
+  height: 70px;
+  width: 150px;
+  /*align-items: center;
+    justify-content: center; REVISAR SI ALINEAMOS TEXTO*/
+}
+
+.Event:hover .box-galery {
+  transform: translateX(0);
+}
+
+.Event .box-galery p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.Event .box-galery h3 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.Event .location {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  z-index: 3;
+}
+
+.Event:nth-child(1) {
+  grid-column: span 2;
+}
+
+.Event:nth-child(4) {
+  grid-column: span 2;
+}
+
+
+/*Seccion de Carrosel*/
+.image-list .image-item {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative; 
+}
+
+.image-list .image-item .carousel-image {
+  width: 80%;
+  height: 450px; 
+  object-fit: cover; 
+}
+
+.container.swiper {
+  width: 1500px;
+  margin: 0 ;
+  padding: 50px 10px;
+  overflow: hidden;  
+}
+
+.container.swiper:hover {
+  cursor: grabbing;
+}
+
+.swiper-wrapper {
+  display: flex;
+  gap: 10px; 
+}
+
+/* Aumentar el tamaño de las balas y hacerlas naranjas */
+.swiper-pagination-bullet {
+  width: 15px !important;
+  height: 15px !important;
+  background: orange !important;
+  opacity: 0.5 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: orange !important;
+  opacity: 1 !important;
+}
+
+
+.image-item h3 {
+  position: absolute;
+  bottom: 60px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-align: left; 
+  width: 100%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.image-item .overlay {
+  position: absolute;
+  bottom: 25px;
+  left: 30px;
+  width: 100%; 
+  height: auto; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: flex-start; 
+  padding: 10px; 
+  box-sizing: border-box; 
+  z-index: 2;
+}
+
+.image-item .box-galery {
+  padding: 2px 60px;
+  background-color: orange;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  justify-content: flex-start;
+  transition: opacity 0.5s ease, transform 0.5s ease; 
+  z-index: 3;
+  width: auto;
+  opacity: 0; 
+  transform: translateY(20px); 
+}
+
+.image-item:hover .box-galery {
+  opacity: 1; 
+  transform: translateY(0); 
+}
+
+.image-item .box-galery p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.image-item .box-galery h4 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.image-item .location {
+  color: white;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: left;
+  margin-top: 10px;
+  z-index: 3;
+  margin-left: 25px;
+}
+
+.image-item .location {
+  bottom: 25px;
+  left: 20px; 
+  font-size: 1.2rem; 
+  font-weight: 600; 
+  color: white;
+  text-align: left; 
+  z-index: 3; 
+  width: auto; /* Para evitar que se rompa el flujo */
+}
+
+
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 7px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #fff; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background: orange; /* color of the scroll thumb */
+}
+
+
+/*Barra de busqueda*/
+.searchBox {
+  opacity: 0;
+  transform: translateX(20px); 
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 130%;
+  background: #fff;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+  pointer-events: none; 
+  transition: opacity 0.5s ease, transform 0.5s ease; 
+    display: flex; 
+}
+
+
+.searchBox.active {
+  opacity: 1;
+  transform: translateY(0); 
+  pointer-events: auto; 
+}
+
+.searchBox input {
+  width: 100%;
+  border: none;
+  outline: none;
+  height: 55px;
+  font-size: 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.searchBox i {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+
+.search h1 {
+  padding: 10px;
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 50px;
+  line-height: 24px;
+  color: #000000;
+  margin-bottom: 40px;
+  margin-left: 300px;
+  text-decoration: none;
+  position: relative;
+}
+
+.search h2 {
+  padding: 10px;
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 25px;
+  line-height: 24px;
+  color: #000000; 
+  margin-top: 10px;
+  margin-bottom: 20px;
+  text-decoration: none; 
+  position: relative;
+}
+
+.search h2 a {
+  color: #000000;
+  text-decoration: none; 
+}
+
+.search h2 a:hover {
+  color: #FFA500; 
+}
+
+.search p{
+  position: relative;
+  left: 30px;
+  top: -20px;
+}
+
+
+
+.mainButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+
+
+
+footer {
+  background-color: #2a343d;
+  width: 100%;
+  margin-top: 3em;
+  padding: 3em 0 0; /* Ajusta el padding para eliminar el espacio extra en la parte inferior */
+  position: relative;
+}
+
+.Div__footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: start;
+  width: 80%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2em;
+  position: relative;
+  z-index: 1;
+  gap: 3em; /* Añadir un pequeño espacio entre las dos columnas */
+
+}
+
+.footer-box-logo {
+  background-color: orange;
+  width: 205px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -100px;
+  left: 30px;
+  z-index: 2;
+}
+
+.Div__footer--left {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  margin-top: 60px;
+}
+
+.Text__left {
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.Div__iconos--left {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.Div__iconos--left i {
+  font-size: 2.5em;
+  color: #ddd;
+}
+
+.Div__footer--right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1em;
+}
+
+.Div__footer--right--tel--correo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5em;
+}
+
+.Telefono {
+  font-size: 30px;
+  color: #fff;
+  font-weight: 900;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+}
+
+.Correo {
+  font-size: 20px;
+  color: #f5ab00;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.AdminPortal {
+  font-size: 18px;
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.AdminPortal:hover {
+  color: #f5ab00;
+}
+
+.Direccion {
+  color: #c6cacc;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+  text-align: right;
+}
+
+.Div__iconos--right {
+  display: flex;
+  gap: 1em;
+}
+
+.Div__iconos--right i {
+  font-size: 2.5em;
+  color: #ddd;
+}
+
+.FooterCopyright {
+  background-color: #ffffff;
+  color: #2a343d;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  padding: 1em 0;
+  margin-top: 2em; /* Un poco de espacio adicional para separar de las secciones superiores */
+  width: 100%;
+  clear: both; /* Asegura que la línea blanca esté al final */
+}
+
+.FooterCopyright span {
+  color: #f5b562;
+}
+
+
+/*Elementos del carousel*/
+
+.body-carousel {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; 
+}
+
+.container-carousel {
+  position: relative;
+  width: 500px;
+  height: 300px;
+  background-color: #e0e0e0;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.66);
+  border-radius: 15px;
+  overflow: hidden;
+
+}
+
+.carruseles {
+  width: 600%;
+  height: 100%;
+  display: flex;
+
+}
+
+.slider-section {
+  width: calc(100% / 6);
+  height: 100%;
+  position: relative;
+}
+
+.slider-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.carousel-text {
+  position: absolute;
+  bottom: 10%; /* Ajusta la posición vertical */
+  left: 10%; /* Ajusta la posición horizontal */
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombras para visibilidad */
+  font-size: 1.2rem; /* Tamaño del texto */
+  font-family: Arial, sans-serif; /* Fuente */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  padding: 10px;
+  border-radius: 8px;
+  /*Animacion al pasar el mouse*/
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+
+.slider-section:hover .carousel-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#h1-carousel {
+  font-size: 80px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.btn-left,
+.btn-right {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #ffffff81;
+  transform: translate(0,-50%);
+  transition: .5s ease;
+  user-select: none;
+}
+
+.btn-left:hover,
+.btn-right:hover {
+  background-color: #333333d4;
+  color: #fff;
+}
+
+.btn-left {
+  left: 10px;
+}
+
+.btn-right {
+  right: 10px;
+}
+
+.resenastext {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+
+
+.country_tours p {
+  margin: 10px auto; 
+  line-height: 1.5; 
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+  .Destinations {
+  padding: 10px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  grid-auto-rows: 400px; 
+  grid-gap: 20px;
+  position: relative;
+  max-width: none;
+  width: 100%; 
+  max-width: 1200px; 
+  box-sizing: border-box;
+}
+
+.Destination {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.Destination img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-width: 300px;
+}
+
+.Destination .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: rotateY(90deg);
+  transition: all 0.5s ease-in-out;
+}
+
+.Destination:hover .overlay {
+  opacity: 1;
+  transform: rotateY(0);
+}
+.Destination:hover .location-static {
+  transform: translate(-50%, -50%) rotateY(90deg);
+  opacity: 0; 
+}
+.overlay .location-overlay {
+  font-size: 30px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.Destination .location-overlay {
+  color: white;
+  font-size: 30px;
+  font-weight: 600;
+  z-index: 3;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+}
+
+.Destination .location-static {
+  position: absolute;
+  top: 80%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  color: white;
+  font-size: 30px;
+  font-weight: 600;
+  z-index: 2;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  transition: all 0.5s ease-in-out; 
+}
+/* Botón */
+#view-tours {
+  background-color: #ff9900;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.5s ease;
+}
+
+.Destination:hover #view-tours {
+  transform: rotateY(0);
+}
+
+
+/* popular destination */
+
+.popular_tours p {
+  margin: 10px auto; 
+  line-height: 1.5; 
+  text-align: center;
+  margin-bottom: 20px;
+  }
+
+.PopularDestinations {
+  padding: 10px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-auto-rows: 400px; 
+  grid-gap: 20px;
+  position: relative;
+  max-width: none;
+  width: 100%; 
+  max-width: 1200px; 
+  box-sizing: border-box;
+}
+
+.PopularDestinations .tour {
+  position: absolute;
+  top: 70%; 
+  left: 40%; 
+  transform: translate(-50%, -50%); 
+  color: white;
+  font-size: 30px;
+  font-weight: 600;
+  z-index: 2;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+
+.user-dropdown {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 40px;
+  right: -50px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  z-index: 100;
+  width: 180px;
+  padding: 10px 0;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.user-dropdown.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.user-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-dropdown ul li {
+  padding: 8px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.user-dropdown ul li a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  pointer-events: none !important;
+}
+
+.user-dropdown ul li a:hover {
+  background-color: #f0f8ff;
+  color: #0056b3;
+  pointer-events: none !important;
+}
+
+.user-dropdown ul li button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #d9534f;
+  background-color: #f8d7da;
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.user-dropdown ul li button:hover {
+  background-color: #f1b0b7;
+}
+
+#profileLink {
+  color: black !important; /* Color fijo sin cambios */
+  text-decoration: none !important; /* No subrayado */
+  background-color: transparent !important; /* Fondo transparente */
+  cursor: pointer !important; /* Cursor tipo puntero */
+}
+
+/* Elimina cualquier efecto de hover */
+#profileLink:hover {
+  text-decoration: none !important; /* No subrayado */
+  background-color: transparent !important; /* Fondo transparente */
+  cursor: pointer !important; /* Mantiene el cursor tipo puntero */
+}
+
+/* Asegura que no haya cambio visual cuando está en estado activo o enfocado */
+#profileLink:focus,
+#profileLink:active {
+  outline: none !important; /* Elimina el borde de enfoque */
+  background-color: transparent !important; /* Fondo transparente */
+  color: blue !important; /* Color sin cambios */
+  text-decoration: none !important; /* No subrayado */
+  cursor: pointer !important; /* Mantiene el cursor tipo puntero */
+}
+
+#calendar {
+  max-width:700px;
+  margin: 0 auto;
+}
+
+.modal {
+  display: none;
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+.FooterImage {
+  position: relative;
+  max-width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  height: 80vh;
+  margin-top: -40px;
+  margin-bottom: 0px;
+}
+
+.FooterImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.iconFooter {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80px; 
+  max-height: 80px;
+  width: auto; 
+  height: auto;    
+  object-fit: contain; 
+  z-index: 2;
+}
+
+
+
+.footertext {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;  /* Alineamos los elementos de manera vertical */
+  align-items: center;  /* Centramos los elementos */
+  justify-content: center;  /* Aseguramos que los elementos se alineen en el centro */
+}
+
+.footertext h2 {
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 50px;
+  color: #fff;
+}
+
+.footertext p {
+  position: relative;
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  right: -90px;
+  font-size: 25px;
+}
+
+.reviews-overlay {
+  position: relative;
+  top: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 255);
+  border-radius: 10px;
+  padding: 15px;
+  z-index: 10;
+}
+
+.review-slide {
+  text-align: center;
+  padding: 10px;
+}
+
+.review-stars {
+  color: #FFD700;
+  font-size: 20px;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*calendario local events*/
+.fc-daygrid-day {
+  cursor: pointer;
+}
+.fc-event {
+  cursor: pointer;
+}
+.fc-event:hover, .fc-daygrid-day:hover {
+  background-color: orange;
+  transition: background-color 0.3s ease;
+}
+
+
+
+
+
