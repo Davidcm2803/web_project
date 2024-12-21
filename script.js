@@ -66,6 +66,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = `/Views/searchResult.html?searchQuery=${encodeURIComponent(searchQuery)}`;
                 } else {
                     alert("Por favor, ingresa un término de búsqueda.");
+                    Swal.fire({
+                        text: "Por favor, ingresa un término de búsqueda.",
+                        imageUrl: "/asset/MemeAlerts/peroaqui-nohay-nada.jpg",
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: "peroaqui-nohay-nada.jpg"
+                      });
                 }
             }
         });
