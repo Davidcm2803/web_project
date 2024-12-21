@@ -252,10 +252,23 @@
                 emailjs.send('service_118kn3f', 'template_w81l0ys', templateParams)
                     .then(function(response) {
                         console.log('Success!', response.status, response.text);
-                        alert('Message sent successfully!');
+                        Swal.fire({
+                            text: "Message sent successfully!",
+                            imageUrl: "/asset/MemeAlerts/message-sent.jpg",
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: "message-sent.jpg"
+                        });
                     }, function(error) {
                         console.log('Failed...', error);
                         alert('Failed to send message. Please try again later.');
+                        Swal.fire({
+                            text: "Failed to send message. Please try again later.",
+                            imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+                        });
                     });
             });
         })();
