@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (searchQuery) {
                     window.location.href = `/Views/searchResult.html?searchQuery=${encodeURIComponent(searchQuery)}`;
                 } else {
-                    alert("Por favor, ingresa un término de búsqueda.");
                     Swal.fire({
                         text: "Por favor, ingresa un término de búsqueda.",
                         imageUrl: "/asset/MemeAlerts/peroaqui-nohay-nada.jpg",
