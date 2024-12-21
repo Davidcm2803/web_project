@@ -48,7 +48,7 @@ async function cargarHistorialDeCompras(userId) {
             });
         }
     } catch (error) {
-        console.error("Error al cargar el historial de compras:", error);
+        console.error("Error al cargar el historial de compras:", error);        
     }
 }
 
