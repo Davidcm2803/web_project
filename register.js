@@ -92,11 +92,23 @@ loginForm.addEventListener("submit", (e) => {
             const user = userCredential.user;
             console.log("User logged in:", user);
             updateUserInterface(user);
-            alert("Login successful!");
+            Swal.fire({
+                text: "Login successful!",
+                imageUrl: "/asset/MemeAlerts/validadndo-datos.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "validadndo-datos.jpeg"
+            });
         })
         .catch((error) => {
             console.error("Login error:", error.message);
-            alert("Invalid email or password. Please try again.");
+            Swal.fire({
+                text: "Invalid email or password. Please try again.",
+                imageUrl: "/asset/MemeAlerts/incorrect-login.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "incorrect-login.jpeg"
+              });
         });
 });
 
@@ -118,7 +130,13 @@ signupForm.addEventListener("submit", (e) => {
             const user = userCredential.user;
             console.log("User registered:", user);
             updateUserInterface(user);
-            alert(`Signup successful! Welcome, ${name}!`);
+            Swal.fire({
+                text: `Signup successful! Welcome, ${name}!`,
+                imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "the-success-kid.jpg"
+              });
         })
         .catch((error) => {
             console.error("Signup error:", error.message);
