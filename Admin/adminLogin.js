@@ -1,4 +1,4 @@
-// Configuración de Firebase
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAowxVHvpmYoluiKnn_M5NMaku9EqcqPDk",
     authDomain: "web-project-f0c9c.firebaseapp.com",
@@ -9,25 +9,22 @@ const firebaseConfig = {
     measurementId: "G-DG1EX6H6PQ"
 };
 
-// Importar funciones de Firebase y Chart.js
+// Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js";
 
-// Inicializar Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
-// Elementos del DOM
+// DOM elements
 const adminLoginForm = document.getElementById("sellerlogin");
 const adminEmailInput = document.getElementById("Email");
 const adminPasswordInput = document.getElementById("Password");
 const userDisplayName = document.getElementById("user-display-name");
 const logoutButton = document.getElementById("logout-btn");
-const refreshButton = document.getElementById("refreshButton");
 
-// Función de Login
+// Login form handler
 if (adminLoginForm) {
     adminLoginForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -42,34 +39,34 @@ if (adminLoginForm) {
                 if (email === "admin@chepeadmin.com") {
                     console.log("Admin logged in:", user);
                     alert("Welcome, Admin!");
+                    // Redirect to admin dashboard
                     window.location.href = "/Admin/homeAdmin.html";
                 } else {
                     alert("Access denied. This portal is for administrators only.");
-                    //agregar meme
                 }
             })
             .catch((error) => {
                 console.error("Login error:", error.message);
                 alert("Invalid email or password. Please try again.");
-                //agregar meme
             });
     });
 }
 
-// Verificar estado de autenticación
+// Handle user authentication state
 onAuthStateChanged(auth, (user) => {
     if (user) {
+        // Display user name or email
         if (userDisplayName) {
             userDisplayName.textContent = user.displayName || user.email;
         }
     } else {
+        // Avoid redirect loop by checking current page
         if (!window.location.pathname.endsWith("adminLogin.html")) {
             window.location.href = "/Admin/adminLogin.html";
         }
     }
 });
 
-// Función de Logout
 if (logoutButton) {
     logoutButton.addEventListener("click", () => {
         signOut(auth)
@@ -80,9 +77,7 @@ if (logoutButton) {
             .catch((error) => {
                 console.error("Logout error:", error.message);
                 alert("Failed to log out. Please try again.");
-                //agregar meme
             });
     });
 }
-
 

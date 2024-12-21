@@ -1269,17 +1269,7 @@ footer {
   object-fit: cover;
 }
 
-/*calendario local events*/
-.fc-daygrid-day {
-  cursor: pointer;
-}
-.fc-event {
-  cursor: pointer;
-}
-.fc-event:hover, .fc-daygrid-day:hover {
-  background-color: orange;
-  transition: background-color 0.3s ease;
-}
+
 
 
 

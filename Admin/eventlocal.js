@@ -16,13 +16,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
+// Reference to the collection
 const eventoLocalCollection = collection(db, "eventoLocal");
 
-
+// Handling Form Submission
 document.getElementById("viajeForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // Retrieve form data
     const titulo = document.getElementById("titulo").value;
     const descripcion = document.getElementById("descripcion").value;
     const actividades = document.getElementById("actividades").value;
@@ -30,6 +31,7 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
     const ubicacion = document.getElementById("ubicacion").value;
     const fecha = document.getElementById("fecha").value;
 
+    // Save data to Firebase
     try {
         await addDoc(eventoLocalCollection, {
             titulo,
@@ -41,11 +43,9 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
             fechaCreacion: new Date()
         });
         alert("Viaje guardado con éxito.");
-        //agregar meme
         document.getElementById("viajeForm").reset();
     } catch (error) {
         console.error("Error al guardar el viaje: ", error);
         alert("Hubo un error al guardar el viaje. Intenta nuevamente.");
-        //agregar meme
     }
 });

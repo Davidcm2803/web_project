@@ -5,165 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/icon.png">
     <title>Chepe trips</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-   <style>
-        .dashboard1 {
-            position: relative;
-            left: 10%;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 400px;
-            text-align: center;
-        }
-    
-        .title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #4caf50;
-        }
-    
-        .earnings {
-            font-size: 36px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-    
-        .currency {
-            font-size: 18px;
-            color: #666;
-        }
-    
-        .progress-bar {
-            background: #e0e0e0;
-            border-radius: 20px;
-            overflow: hidden;
-            height: 20px;
-            margin-top: 20px;
-            position: relative;
-        }
-    
-        .progress {
-            background: #4caf50;
-            height: 100%;
-            width: 0%;
-            transition: width 2s ease-in-out;
-        }
-    
-        .percentage {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            font-weight: bold;
-            font-size: 14px;
-            color: #fff;
-        }
-    
-        .button {
-            background: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 30px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-    
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        
-        .dashboard {
-            position: relative;
-            left: 60%;
-            bottom: 34%;
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        h2 {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        
-        .chart-container {
-            display: flex; 
-            justify-content: center;
-            align-items: center;    
-            position: relative;
-            height: 300px;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        
-        canvas {
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            max-width: 100%; /* Para evitar que el canvas se desborde */
-        }
-        
-        .category-counts {
-            margin-top: 20px;
-            text-align: left;
-            font-size: 16px;
-            color: #333;
-        }
-        
-        .category-counts p {
-            margin: 5px 0;
-            font-weight: bold;
-            color: #555;
-        }
-        
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
-            font-weight: bold;
-        }
-        
-        .button:hover {
-            background-color: #45a049;
-        }
-        
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        
-        .dashboard {
-            animation: fadeIn 1s ease-out;
-        }
-        
-    </style>
 </head>
 <body>
     <div class="d-flex">
@@ -210,78 +54,15 @@
             </nav>
 
             <!-- Content -->
-            <div class="dashboard1">
-                <div class="title">Ganancias Aproximadas</div>
-                <div class="earnings" id="earnings">$5000</div>
-                <div class="currency">USD</div>
-                
-                <div class="progress-bar">
-                  <div class="progress" id="progress"></div>
-                  <div class="percentage" id="percentage">0%</div>
-                </div>
-                
-                <button class="button" id="refreshButton">Actualizar Ganancias</button>
-            </div>
-
-            <div class="dashboard">
-                <h2>Estadísticas de Viajes</h2>
-                
-                <div class="chart-container">
-                    <canvas id="pieChart"></canvas>
-                </div>
-        
-                <div class="category-counts" id="categoryCounts"></div>
-        
-                <button class="button" id="refreshButton">Actualizar</button>
+            <div class="p-4">
+                <h1>Welcome!</h1>
+                <p>no se que poner</p>
             </div>
         </div>
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="/Admin/adminLogin.js"></script>
-    <script type="module" src="/Admin/dashboard.js"></script>
-    <script>
-        // Función para generar una ganancia aleatoria entre $3000 y $8000
-        function generarGanancias() {
-          return (Math.random() * (8000 - 3000) + 3000).toFixed(2);
-        }
-    
-        function animarProgreso() {
-          const progressElement = document.getElementById('progress');
-          const percentageElement = document.getElementById('percentage');
-          
-          let progress = 0;
-          const interval = setInterval(function() {
-            progress += 2;
-            progressElement.style.width = `${progress}%`;
-            percentageElement.textContent = `${progress}%`;
-            
-            if (progress >= 100) {
-              clearInterval(interval);
-            }
-          }, 50);
-        }
-    
-        // Función para actualizar la cantidad de ganancias
-        function actualizarGanancias() {
-          const ganancias = generarGanancias();
-          const earningsElement = document.getElementById('earnings');
-          earningsElement.textContent = `$${ganancias}`;
-          const progressElement = document.getElementById('progress');
-          progressElement.style.width = '0%';
-          animarProgreso();
-        }
-    
-
-        document.getElementById('refreshButton').addEventListener('click', actualizarGanancias);
-        window.onload = function() {
-          animarProgreso();
-        };
-      </script>
 </body>
 </html>
-

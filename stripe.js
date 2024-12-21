@@ -28,12 +28,10 @@ paymentForm.addEventListener('submit', async (event) => {
         // Si hay un error, muestra el mensaje de error
         console.error('Error al crear el token:', error);
         alert('Error: ' + error.message);
-        //agregar meme
     } else {
         // Simulando que el pago fue exitoso
         console.log('Token creado:', token);
         alert('¡Pago realizado con éxito!');
-        //agregar meme
 
         // Vaciar el carrito en Firestore y registrar las compras
         try {
@@ -44,10 +42,6 @@ paymentForm.addEventListener('submit', async (event) => {
             if (querySnapshot.empty) {
                 console.log('El carrito está vacío.');
                 alert('El carrito está vacío.');
-
-                //agregar meme Carro vacio
-                //agregar meme
-
                 return;
             }
 
