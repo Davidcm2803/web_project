@@ -83,7 +83,6 @@ document.querySelector('.order-button').addEventListener('click', async function
         }
     } else {
         console.log("Usuario no logueado. No se puede agregar al carrito.");
-        alert("Por favor, inicia sesión para agregar al carrito.");
         Swal.fire({
             text: "Por favor, inicia sesión para agregar al carrito.",
             imageUrl: "/asset/MemeAlerts/login-para-usar-carrito.jpeg",
