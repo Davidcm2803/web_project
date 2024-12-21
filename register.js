@@ -150,6 +150,13 @@ logoutButton.addEventListener("click", () => {
         .then(() => {
             console.log("User logged out.");
             updateUserInterface(null);
+            Swal.fire({
+                text: "Logged out successfully.",
+                imageUrl: "/asset/MemeAlerts/cerrar-sesion-yoda.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "cerrar-sesion-yoda.jpeg"
+              });
         })
         .catch((error) => {
             console.error("Logout error:", error.message);
