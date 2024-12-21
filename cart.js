@@ -9,11 +9,16 @@ auth.onAuthStateChanged((user) => {
         if (!pagoRealizado) { 
             cargarCarrito(user.uid);
         } else {
-            mostrarHistorialDeCompras(user.uid);  // Mostrar historial si el pago fue realizado
+            mostrarHistorialDeCompras(user.uid);
         }
     } else {
         console.log("No hay usuario autenticado.");
-        alert("Por favor, inicia sesión para ver tu carrito.");
+        Swal.fire({
+            imageUrl: "/asset/MemeAlerts/login-para-usar-carrito.jpg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "login-para-usar-carrito.jpg"
+        });
     }
 });
 
@@ -74,7 +79,7 @@ async function cargarCarrito(userId) {
 
             // Actualizar el total
             document.getElementById('subtotal').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('total').innerText = `$${(total + 10).toFixed(2)}`;  // Incluyendo el costo de envío de $10
+            document.getElementById('total').innerText = `$${(total + 10).toFixed(2)}`;
 
             // Actualizar el botón de checkout
             document.getElementById('checkout-amount').innerText = `$${(total + 10).toFixed(2)}`;

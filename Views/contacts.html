@@ -252,6 +252,7 @@
                     .then(function(response) {
                         console.log('Success!', response.status, response.text);
                         alert('Message sent successfully!');
+                        //agregar meme
                     }, function(error) {
                         console.log('Failed...', error);
                         alert('Failed to send message. Please try again later.');
@@ -259,7 +260,7 @@
             });
         })();
         </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

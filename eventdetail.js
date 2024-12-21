@@ -1,5 +1,5 @@
-// Importamos la configuración de Firebase y las funcionalidades necesarias
-import { auth, db } from './firebaseConfig.js';  // Asegúrate de que la ruta sea correcta
+
+import { auth, db } from './firebaseConfig.js'; 
 
 import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
@@ -28,12 +28,24 @@ activities.forEach(activity => {
     activitiesList.appendChild(li);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date(); 
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); 
+    const day = String(today.getDate()).padStart(2, "0"); 
+    const todayFormatted = `${year}-${month}-${day}`;
+    const dateInput = document.getElementById("tour-date");
+    dateInput.setAttribute("min", todayFormatted); 
+});
+
+/*
 if (date) {
     const dateInput = document.getElementById('tour-date');
     dateInput.value = date;
     dateInput.setAttribute('min', date);
     dateInput.setAttribute('max', date);
 }
+*/
 
 const googleMapLink = document.getElementById('google-map-link');
 if (tourLocation) {
@@ -42,20 +54,18 @@ if (tourLocation) {
 
 // Función para agregar el tour al carrito
 document.querySelector('.order-button').addEventListener('click', async function () {
-    // Obtener los detalles del tour desde los elementos HTML
     const title = document.getElementById('tour-title').innerText;
     const price = document.getElementById('tour-price').innerText;
     const description = document.getElementById('tour-description').innerText;
     const image = document.getElementById('tour-image').src;
     const date = document.getElementById('tour-date').value;
 
-    // Verifica si el usuario está autenticado
+
     const user = auth.currentUser;
-    console.log("Usuario logueado:", user); // Añadir un log para ver si 'user' es válido
+    console.log("Usuario logueado:", user);
     if (user) {
         const userId = user.uid;
 
-        // Agregar el tour al carrito en Firestore
         try {
             await addDoc(collection(db, 'carrito', userId, 'tours'), {
                 title: title,
@@ -65,12 +75,15 @@ document.querySelector('.order-button').addEventListener('click', async function
                 date: date
             });
             alert("Tour agregado al carrito");
+            //agregar meme
         } catch (error) {
             console.error("Error al agregar al carrito: ", error);
             alert("Hubo un error al agregar el tour al carrito. Intenta de nuevo.");
+            //agregar meme
         }
     } else {
         console.log("Usuario no logueado. No se puede agregar al carrito.");
         alert("Por favor, inicia sesión para agregar al carrito.");
+        //agregar meme
     }
 });
