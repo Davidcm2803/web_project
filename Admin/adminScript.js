@@ -21,10 +21,22 @@ let editingId = null; // Controla si estamos editando un viaje existente
 async function addViaje(viaje) {
   try {
     await db.collection("viajes").add(viaje);
-    alert("Viaje guardado con éxito.");
+    Swal.fire({
+      text: "Viaje guardado con éxito.",
+      imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "the-success-kid.jpg"
+    });
   } catch (error) {
     console.error("Error al guardar el viaje:", error);
-    alert("Hubo un error al guardar el viaje.");
+    Swal.fire({
+      text: "Hubo un error al guardar el viaje.",
+      imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+    });
   }
 }
 
@@ -32,10 +44,22 @@ async function addViaje(viaje) {
 async function updateViaje(id, viaje) {
   try {
     await db.collection("viajes").doc(id).update(viaje);
-    alert("Viaje actualizado con éxito.");
+    Swal.fire({
+      text: "Viaje actualizado con éxito.",
+      imageUrl: "/asset/MemeAlerts/updated.jpg",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "updated.jpg"
+    });
   } catch (error) {
     console.error("Error al actualizar el viaje:", error);
-    alert("Hubo un error al actualizar el viaje.");
+    Swal.fire({
+      text: "Hubo un error al actualizar el viaje.",
+      imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+    });
   }
 }
 
@@ -63,7 +87,13 @@ viajeForm.addEventListener("submit", async (e) => {
   const fechasDisponibles = viajeForm.fechasDisponibles.value.trim();
 
   if (!imagenUrl || !ubicacion || !isValidUrl(imagenUrl) || !isValidUrl(ubicacion)) {
-    alert("Por favor, ingresa URLs válidas para la imagen y la ubicación.");
+    Swal.fire({
+      text: "Por favor, ingresa URLs válidas para la imagen y la ubicación.",
+      imageUrl: "/asset/MemeAlerts/wrong-data-meme.jpg",
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "wrong-data-meme.jpg"
+    });
     return;
   }
 
@@ -133,7 +163,13 @@ function startEdit(id) {
     .get()
     .then((doc) => {
       if (!doc.exists) {
-        alert("El viaje no existe.");
+        Swal.fire({
+          text: "El viaje no existe.",
+          imageUrl: "/asset/MemeAlerts/no-existe.jpg",
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: "no-existe.jpg"
+        });
         return;
       }
 
@@ -153,7 +189,13 @@ function startEdit(id) {
     })
     .catch((error) => {
       console.error("Error al obtener el viaje:", error);
-      alert("Hubo un error al obtener los datos del viaje.");
+      Swal.fire({
+        text: "Hubo un error al obtener los datos del viaje.",
+        imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+      });
     });
 }
 
