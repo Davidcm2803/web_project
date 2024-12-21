@@ -56,6 +56,7 @@ if (adminLoginForm) {
                         imageWidth: 400,
                         imageHeight: 200,
                         imageAlt: "only-admins.jpg"
+                        //try2
                     });
                 }
             })
