@@ -17,8 +17,13 @@ window.deleteViaje = function(viajeId) {
   if (confirm("¿Estás seguro de que quieres eliminar este viaje?")) {
     db.collection("viajes").doc(viajeId).delete()
       .then(() => {
-        alert("Viaje eliminado exitosamente.");
-        //agregar meme
+        Swal.fire({
+          text: "Viaje eliminado exitosamente.",
+          imageUrl: "/asset/MemeAlerts/deleted.jpg",
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: "deleted.jpg"
+        });
       })
       .catch((error) => {
         console.error("Error al eliminar el viaje: ", error);

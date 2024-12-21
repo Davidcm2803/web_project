@@ -62,16 +62,31 @@ document.querySelector('.order-button').addEventListener('click', async function
                 image: image,
                 date: date
             });
-            alert("Tour agregado al carrito");
-            //agregar meme
+            Swal.fire({
+                text: "Tour agregado al carrito",
+                imageUrl: "/asset/MemeAlerts/si-a-todo-pagar.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "si-a-todo-pagar.jpeg"
+              });
         } catch (error) {
             console.error("Error al agregar al carrito: ", error);
-            alert("Hubo un error al agregar el tour al carrito. Intenta de nuevo.");
-            //agregar meme
+            Swal.fire({
+                text: "Hubo un error al agregar el tour al carrito. Intenta de nuevo.",
+                imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+            });
         }
     } else {
         console.log("Usuario no logueado. No se puede agregar al carrito.");
-        alert("Por favor, inicia sesión para agregar al carrito.");
-        //agregar meme
+        Swal.fire({
+            text: "Por favor, inicia sesión para agregar al carrito.",
+            imageUrl: "/asset/MemeAlerts/por-favor-inicia-sesion.jpeg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "por-favor-inicia-sesion.jpeg"
+        });
     }
 });

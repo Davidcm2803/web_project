@@ -94,7 +94,7 @@ loginForm.addEventListener("submit", (e) => {
             updateUserInterface(user);
             Swal.fire({
 
-                imageUrl: "/asset/MemeAlerts/success-i-logged.jpg",
+                imageUrl: "/asset/MemeAlerts/when-i-finally.jpg",
                 imageWidth: 400,
                 imageHeight: 200,
                 imageAlt: "login-successful.jpeg"
