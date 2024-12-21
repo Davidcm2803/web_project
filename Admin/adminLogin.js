@@ -38,38 +38,16 @@ if (adminLoginForm) {
 
                 if (email === "admin@chepeadmin.com") {
                     console.log("Admin logged in:", user);
-                    Swal.fire({
-                        text: "Welcome, Admin!",
-                        imageUrl: "/asset/MemeAlerts/welcome-to-administration.jpg",
-                        imageWidth: 400,
-                        imageHeight: 200,
-                        imageAlt: "welcome-to-administration.jpg"
-                    });
+                    alert("Welcome, Admin!");
+                    // Redirect to admin dashboard
                     window.location.href = "/Admin/homeAdmin.html";
                 } else {
-                    Swal.fire({
-                        text: "Access denied. This portal is for administrators only.",
-                        imageUrl: "/asset/MemeAlerts/only-admins.jpg",
-                        imageWidth: 400,
-                        imageHeight: 200,
-                        imageAlt: "only-admins.jpg"
-                        //try2
-                    });
+                    alert("Access denied. This portal is for administrators only.");
                 }
             })
             .catch((error) => {
                 console.error("Login error:", error.message);
-                Swal.fire({
-                    text: "Invalid email or password. Please try again.",
-                    imageUrl: "/asset/MemeAlerts/incorrect-login.jpeg",
-                    imageWidth: 400,
-                    imageHeight: 200,
-                    imageAlt: "incorrect-login.jpeg"
-                    //try
-                });
-
                 alert("Invalid email or password. Please try again.");
-
             });
     });
 }
@@ -98,14 +76,7 @@ if (logoutButton) {
             })
             .catch((error) => {
                 console.error("Logout error:", error.message);
-                Swal.fire({
-                    text: "Failed to log out. Please try again.",
-                    imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
-                    imageWidth: 400,
-                    imageHeight: 200,
-                    imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
-                });
-
+                alert("Failed to log out. Please try again.");
             });
     });
 }

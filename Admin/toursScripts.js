@@ -19,14 +19,7 @@ window.deleteViaje = function(viajeId) {
     // Eliminar el documento de Firebase
     db.collection("viajes").doc(viajeId).delete()
       .then(() => {
-
-        Swal.fire({
-          text: "Viaje eliminado exitosamente.",
-          imageUrl: "/asset/MemeAlerts/deleted.jpg",
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "deleted.jpg"
-        });
+        alert("Viaje eliminado exitosamente.");
       })
       .catch((error) => {
         console.error("Error al eliminar el viaje: ", error);

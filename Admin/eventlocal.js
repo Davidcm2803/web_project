@@ -42,23 +42,10 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
             fecha,
             fechaCreacion: new Date()
         });
-
-        Swal.fire({
-            text: "Viaje guardado con éxito.",
-            imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "the-success-kid.jpg"
-        });
+        alert("Viaje guardado con éxito.");
         document.getElementById("viajeForm").reset();
     } catch (error) {
         console.error("Error al guardar el viaje: ", error);
-        Swal.fire({
-            text: "Hubo un error al guardar el viaje. Intenta nuevamente.",
-            imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
-          });
-
+        alert("Hubo un error al guardar el viaje. Intenta nuevamente.");
+    }
 });

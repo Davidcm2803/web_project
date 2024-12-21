@@ -92,13 +92,7 @@ loginForm.addEventListener("submit", (e) => {
             const user = userCredential.user;
             console.log("User logged in:", user);
             updateUserInterface(user);
-            Swal.fire({
-                imageUrl: "/asset/MemeAlerts/when-i-finally.jpg",
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: "login-successful.jpeg"
-
-            });
+            alert("Login successful!");
         })
         .catch((error) => {
             console.error("Login error:", error.message);
