@@ -38,16 +38,34 @@ if (adminLoginForm) {
 
                 if (email === "admin@chepeadmin.com") {
                     console.log("Admin logged in:", user);
-                    alert("Welcome, Admin!");
+                    Swal.fire({
+                        text: "Welcome, Admin!",
+                        imageUrl: "/asset/MemeAlerts/welcome-to-administration.jpg",
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: "welcome-to-administration.jpg"
+                      });
                     // Redirect to admin dashboard
                     window.location.href = "/Admin/homeAdmin.html";
                 } else {
-                    alert("Access denied. This portal is for administrators only.");
+                    Swal.fire({
+                        text: "Access denied. This portal is for administrators only.",
+                        imageUrl: "/asset/MemeAlerts/only-admins.jpg",
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: "only-admins.jpg"
+                      });
                 }
             })
             .catch((error) => {
                 console.error("Login error:", error.message);
-                alert("Invalid email or password. Please try again.");
+                Swal.fire({
+                    text: "Invalid email or password. Please try again.",
+                    imageUrl: "/asset/MemeAlerts/incorrect-login.jpeg",
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: "incorrect-login.jpeg"
+                  });
             });
     });
 }
@@ -76,7 +94,13 @@ if (logoutButton) {
             })
             .catch((error) => {
                 console.error("Logout error:", error.message);
-                alert("Failed to log out. Please try again.");
+                Swal.fire({
+                    text: "Failed to log out. Please try again.",
+                    imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+                  });
             });
     });
 }
