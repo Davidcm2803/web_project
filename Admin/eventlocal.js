@@ -16,13 +16,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
+// Reference to the collection
 const eventoLocalCollection = collection(db, "eventoLocal");
 
-
+// Handling Form Submission
 document.getElementById("viajeForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // Retrieve form data
     const titulo = document.getElementById("titulo").value;
     const descripcion = document.getElementById("descripcion").value;
     const actividades = document.getElementById("actividades").value;
@@ -30,6 +31,7 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
     const ubicacion = document.getElementById("ubicacion").value;
     const fecha = document.getElementById("fecha").value;
 
+    // Save data to Firebase
     try {
         await addDoc(eventoLocalCollection, {
             titulo,
@@ -40,6 +42,7 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
             fecha,
             fechaCreacion: new Date()
         });
+
         Swal.fire({
             text: "Viaje guardado con éxito.",
             imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
@@ -57,5 +60,5 @@ document.getElementById("viajeForm").addEventListener("submit", async (e) => {
             imageHeight: 200,
             imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
           });
-    }
+
 });

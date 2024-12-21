@@ -15,12 +15,13 @@ const db = firebase.firestore();
 
 const viajeForm = document.getElementById("viajeForm");
 const viajesContainer = document.getElementById("viajesContainer");
-let editingId = null;
+let editingId = null; // Controla si estamos editando un viaje existente
 
 // Función para guardar un nuevo viaje
 async function addViaje(viaje) {
   try {
     await db.collection("viajes").add(viaje);
+
     Swal.fire({
       text: "Viaje guardado con éxito.",
       imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
@@ -44,6 +45,7 @@ async function addViaje(viaje) {
 async function updateViaje(id, viaje) {
   try {
     await db.collection("viajes").doc(id).update(viaje);
+
     Swal.fire({
       text: "Viaje actualizado con éxito.",
       imageUrl: "/asset/MemeAlerts/updated.jpg",
@@ -87,6 +89,7 @@ viajeForm.addEventListener("submit", async (e) => {
   const fechasDisponibles = viajeForm.fechasDisponibles.value.trim();
 
   if (!imagenUrl || !ubicacion || !isValidUrl(imagenUrl) || !isValidUrl(ubicacion)) {
+
     Swal.fire({
       text: "Por favor, ingresa URLs válidas para la imagen y la ubicación.",
       imageUrl: "/asset/MemeAlerts/wrong-data-meme.jpg",
@@ -100,25 +103,26 @@ viajeForm.addEventListener("submit", async (e) => {
   const viaje = { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles };
 
   if (editingId) {
+    // Si estamos editando, actualiza el viaje existente
     await updateViaje(editingId, viaje);
     editingId = null;
   } else {
-
+    // Si no, agrega un nuevo viaje
     await addViaje(viaje);
   }
 
   viajeForm.reset();
 });
 
-
+// Escuchar cambios en la colección de viajes
 db.collection("viajes").onSnapshot((querySnapshot) => {
-  viajesContainer.innerHTML = "";
+  viajesContainer.innerHTML = ""; // Limpiar el contenedor
 
   querySnapshot.forEach((doc) => {
     const { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles } = doc.data();
     const id = doc.id;
 
-
+    // Generar listas para actividades y fechas disponibles
     const actividadesLista = actividades
       .split(/\r?\n|,/) 
       .map((actividad) => `<li>${actividad.trim()}</li>`)
@@ -155,12 +159,14 @@ db.collection("viajes").onSnapshot((querySnapshot) => {
   });
 });
 
+// Función para empezar a editar un viaje
 function startEdit(id) {
   db.collection("viajes")
     .doc(id)
     .get()
     .then((doc) => {
       if (!doc.exists) {
+
         Swal.fire({
           text: "El viaje no existe.",
           imageUrl: "/asset/MemeAlerts/no-existe.jpg",
@@ -168,11 +174,13 @@ function startEdit(id) {
           imageHeight: 200,
           imageAlt: "no-existe.jpg"
         });
+
         return;
       }
 
       const { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles } = doc.data();
 
+      // Llenar el formulario con los datos actuales
       viajeForm.titulo.value = titulo;
       viajeForm.descripcion.value = descripcion;
       viajeForm.precio.value = precio;
@@ -182,10 +190,11 @@ function startEdit(id) {
       viajeForm.ubicacion.value = ubicacion;
       viajeForm.fechasDisponibles.value = fechasDisponibles;
 
-      editingId = id;
+      editingId = id; // Guardar el ID del viaje que se está editando
     })
     .catch((error) => {
       console.error("Error al obtener el viaje:", error);
+
       Swal.fire({
         text: "Hubo un error al obtener los datos del viaje. Intenta nuevamente.",
         imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",

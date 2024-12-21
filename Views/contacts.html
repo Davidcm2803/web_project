@@ -251,6 +251,7 @@
                 emailjs.send('service_118kn3f', 'template_w81l0ys', templateParams)
                     .then(function(response) {
                         console.log('Success!', response.status, response.text);
+
                         Swal.fire({
                             text: 'Message sent successfully!',
                             imageUrl: "/asset/MemeAlerts/message-sent.jpg",
@@ -271,7 +272,6 @@
             });
         })();
         </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
 
+</body>
 </html>

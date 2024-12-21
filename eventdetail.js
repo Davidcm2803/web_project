@@ -1,5 +1,5 @@
-
-import { auth, db } from './firebaseConfig.js'; 
+// Importamos la configuración de Firebase y las funcionalidades necesarias
+import { auth, db } from './firebaseConfig.js';  // Asegúrate de que la ruta sea correcta
 
 import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
@@ -28,24 +28,12 @@ activities.forEach(activity => {
     activitiesList.appendChild(li);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const today = new Date(); 
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0"); 
-    const day = String(today.getDate()).padStart(2, "0"); 
-    const todayFormatted = `${year}-${month}-${day}`;
-    const dateInput = document.getElementById("tour-date");
-    dateInput.setAttribute("min", todayFormatted); 
-});
-
-/*
 if (date) {
     const dateInput = document.getElementById('tour-date');
     dateInput.value = date;
     dateInput.setAttribute('min', date);
     dateInput.setAttribute('max', date);
 }
-*/
 
 const googleMapLink = document.getElementById('google-map-link');
 if (tourLocation) {
@@ -54,18 +42,20 @@ if (tourLocation) {
 
 // Función para agregar el tour al carrito
 document.querySelector('.order-button').addEventListener('click', async function () {
+    // Obtener los detalles del tour desde los elementos HTML
     const title = document.getElementById('tour-title').innerText;
     const price = document.getElementById('tour-price').innerText;
     const description = document.getElementById('tour-description').innerText;
     const image = document.getElementById('tour-image').src;
     const date = document.getElementById('tour-date').value;
 
-
+    // Verifica si el usuario está autenticado
     const user = auth.currentUser;
-    console.log("Usuario logueado:", user);
+    console.log("Usuario logueado:", user); // Añadir un log para ver si 'user' es válido
     if (user) {
         const userId = user.uid;
 
+        // Agregar el tour al carrito en Firestore
         try {
             await addDoc(collection(db, 'carrito', userId, 'tours'), {
                 title: title,
@@ -74,6 +64,7 @@ document.querySelector('.order-button').addEventListener('click', async function
                 image: image,
                 date: date
             });
+
             Swal.fire({
                 text: "Tour agregado al carrito",
                 imageUrl: "/asset/MemeAlerts/si-a-todo-pagar.jpeg",

@@ -13,10 +13,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// Hacer la función deleteViaje accesible globalmente
 window.deleteViaje = function(viajeId) {
   if (confirm("¿Estás seguro de que quieres eliminar este viaje?")) {
+    // Eliminar el documento de Firebase
     db.collection("viajes").doc(viajeId).delete()
       .then(() => {
+
         Swal.fire({
           text: "Viaje eliminado exitosamente.",
           imageUrl: "/asset/MemeAlerts/deleted.jpg",
@@ -31,25 +34,26 @@ window.deleteViaje = function(viajeId) {
   }
 }
 
-
+// Referencia al contenedor donde se mostrarán los viajes
 const viajesContainer = document.getElementById("viajesContainer");
 
-
+// Escuchar cambios en la colección de viajes
 db.collection("viajes").onSnapshot((querySnapshot) => {
-  viajesContainer.innerHTML = ""; 
+  viajesContainer.innerHTML = ""; // Limpiar el contenedor
 
   querySnapshot.forEach((doc) => {
     const { titulo, descripcion, precio, actividades, imagenUrl, categoria, ubicacion, fechasDisponibles } = doc.data();
 
-
+    // Generar la lista de actividades
     const actividadesLista = actividades
       .split(/\r?\n|,/) // Separar por saltos de línea o comas
       .map((actividad) => `<li>${actividad.trim()}</li>`)
       .join("");
 
+    // Verificar si fechasDisponibles existe antes de intentar usar split
     const fechasLista = (fechasDisponibles && fechasDisponibles.split(","))
       ? fechasDisponibles.split(",").map((fecha) => `<li>${fecha.trim()}</li>`).join("")
-      : "<li>No disponible</li>";
+      : "<li>No disponible</li>";  // Si no hay fechas, mostrar un mensaje de "No disponible"
 
     const viajeDiv = document.createElement("div");
     viajeDiv.classList.add("viaje", "col-md-4");

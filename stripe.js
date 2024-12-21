@@ -27,6 +27,7 @@ paymentForm.addEventListener('submit', async (event) => {
     if (error) {
         // Si hay un error, muestra el mensaje de error
         console.error('Error al crear el token:', error);
+
         Swal.fire({
             text: 'Error: ' + error.message,
             imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
@@ -38,6 +39,7 @@ paymentForm.addEventListener('submit', async (event) => {
         // Simulando que el pago fue exitoso
         
 
+
         // Vaciar el carrito en Firestore y registrar las compras
         try {
             const cartRef = collection(db, 'carrito', auth.currentUser.uid, 'tours');
@@ -46,6 +48,7 @@ paymentForm.addEventListener('submit', async (event) => {
             // Verificar si hay productos en el carrito
             if (querySnapshot.empty) {
                 console.log('El carrito está vacío.');
+
                 Swal.fire({
                     text: 'El carrito está vacío.',
                     imageUrl: "/asset/MemeAlerts/empty-cart.jpg",
@@ -53,6 +56,7 @@ paymentForm.addEventListener('submit', async (event) => {
                     imageHeight: 200,
                     imageAlt: "empty-cart.jpg"
                 });
+
                 return;
             }else{
                 console.log('Token creado:', token);

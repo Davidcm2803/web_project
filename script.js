@@ -30,30 +30,30 @@ document.addEventListener('DOMContentLoaded', function() {
     if (signupBtn && formContainer) {
         signupBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            formContainer.querySelector('.login-form').classList.remove('active');
-            formContainer.querySelector('.signup_form').classList.add('active'); 
+            formContainer.querySelector('.login-form').classList.remove('active'); // Ocultar login
+            formContainer.querySelector('.signup_form').classList.add('active');  // Mostrar signup
         });
     }
 
     if (loginBtn && formContainer) {
         loginBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            formContainer.querySelector('.signup_form').classList.remove('active');
-            formContainer.querySelector('.login-form').classList.add('active');
+            formContainer.querySelector('.signup_form').classList.remove('active');  // Ocultar signup
+            formContainer.querySelector('.login-form').classList.add('active'); // Mostrar login
         });
     }
 
     // Mostrar/ocultar el cuadro de búsqueda
     if (searchBtn) {
         searchBtn.addEventListener("click", () => {
-            searchBox.classList.toggle("active"); 
+            searchBox.classList.toggle("active");  // Alternar visibilidad del cuadro de búsqueda
         });
     }
 
     // Cerrar el cuadro de búsqueda al hacer clic en el ícono de cerrar
     if (closeSearchBtn) {
         closeSearchBtn.addEventListener("click", () => {
-            searchBox.classList.remove("active");
+            searchBox.classList.remove("active");  // Ocultar el cuadro de búsqueda
         });
     }
 
@@ -65,14 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (searchQuery) {
                     window.location.href = `/Views/searchResult.html?searchQuery=${encodeURIComponent(searchQuery)}`;
                 } else {
-                    Swal.fire({
-                        title: "Pero",
-                        text: "introduce algo a tu busqueda compita",
-                        imageUrl: "/asset/MemeAlerts/peroaqui-nohay-nada.jpg",
-                        imageWidth: 400,
-                        imageHeight: 200,
-                        imageAlt: "Aqui-No-Hay-Nada.jpg"
-                    });
+                    alert("Por favor, ingresa un término de búsqueda.");
                 }
             }
         });
@@ -407,6 +400,7 @@ function generateStars(count) {
     return '★'.repeat(count) + '☆'.repeat(5 - count);
 }
 
+// Fetch and display reviews
 async function displayReviews() {
     try {
         if (typeof jQuery === 'undefined') {
@@ -430,6 +424,7 @@ async function displayReviews() {
             container.appendChild(image);
         }
 
+        // Create overlay if not exists
         let reviewsOverlay = document.querySelector('.reviews-overlay');
         if (!reviewsOverlay) {
             reviewsOverlay = document.createElement('div');
@@ -439,7 +434,7 @@ async function displayReviews() {
         }
 
         const reviewsCarousel = document.getElementById('reviews-carousel');
-        reviewsCarousel.innerHTML = '';
+        reviewsCarousel.innerHTML = ''; // Clear existing content
         
         const reviewsRef = collection(db, 'reseñas');
         const snapshot = await getDocs(reviewsRef);
@@ -458,6 +453,7 @@ async function displayReviews() {
             reviewsCarousel.appendChild(slide);
         });
 
+        // Initialize Slick Carousel
         $(reviewsCarousel).slick({
             dots: false,
             infinite: true,
