@@ -27,11 +27,14 @@ paymentForm.addEventListener('submit', async (event) => {
     if (error) {
         // Si hay un error, muestra el mensaje de error
         console.error('Error al crear el token:', error);
-        alert('Error: ' + error.message);
+        Swal.fire({
+            text: 'Error: ' + error.message,
+            imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+          });
     } else {
-        // Simulando que el pago fue exitoso
-        console.log('Token creado:', token);
-        alert('¡Pago realizado con éxito!');
 
         // Vaciar el carrito en Firestore y registrar las compras
         try {
@@ -41,8 +44,24 @@ paymentForm.addEventListener('submit', async (event) => {
             // Verificar si hay productos en el carrito
             if (querySnapshot.empty) {
                 console.log('El carrito está vacío.');
-                alert('El carrito está vacío.');
+                Swal.fire({
+                    text: "El carrito está vacío.",
+                    imageUrl: "/asset/MemeAlerts/empty-cart.jpg",
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: "empty-cart.jpg"
+                  });
                 return;
+            }else{
+                // Simulando que el pago fue exitoso
+                console.log('Token creado:', token);
+                Swal.fire({
+                    text: "Pago realizado con exito",
+                    imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: "the-success-kid.jpg"
+                  });
             }
 
             // Array para guardar los productos comprados
