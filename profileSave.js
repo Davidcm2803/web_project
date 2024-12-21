@@ -1,6 +1,6 @@
 import { auth, db } from './firebaseConfig.js';
 import { doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js';
-import { updateEmail, updatePassword, updateProfile, reauthenticateWithCredential, EmailAuthProvider } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js';
+import { updateEmail, updatePassword, updateProfile, reauthenticateWithCredential, EmailAuthProvider, signOut } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js';
 
 async function reauthenticateUser(password) {
     const user = auth.currentUser;
@@ -38,18 +38,30 @@ auth.onAuthStateChanged(async (user) => {
 
             document.getElementById('fullname').value = displayName || '';
             document.getElementById('email').value = user.email || '';
-            document.getElementById('password').placeholder = "No modificar si no desea cambiar la contraseña";
+            document.getElementById('password').placeholder = "No modificar si no deseas cambiar la contraseña";
             const data = (await getDoc(userDocRef)).data();
 
             document.getElementById('phone').value = data.phone || '';
             document.getElementById('destination').value = data.destination || '';
             document.getElementById('travelMode').value = data.travelMode || '';
             document.getElementById('budget').value = data.budget || '';
+
+            document.getElementById('dropdownUserName').textContent = displayName || 'Usuario';
         } catch (error) {
             console.error("Error al obtener o crear los datos: ", error);
         }
     } else {
         console.log('Usuario no autenticado');
+    }
+});
+
+document.getElementById('logout').addEventListener('click', async () => {
+    try {
+        await signOut(auth);
+        console.log('Usuario cerrado sesión');
+        window.location.href = '/index.html';
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
     }
 });
 
@@ -64,7 +76,6 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
     const budget = document.getElementById('budget').value;
     const newPassword = document.getElementById('password').value;
 
-    // Validar correo electrónico
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
         alert("Por favor ingresa un correo electrónico válido.");
@@ -76,8 +87,12 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
         return;
     }
 
+    if (newPassword && newPassword.length < 6) {
+        alert("La contraseña debe tener al menos 6 caracteres.");
+        return;
+    }
+
     const user = auth.currentUser;
-    console.log(user);
 
     if (user) {
         try {
@@ -88,8 +103,13 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
 
                     const confirmChange = confirm("¿Estás seguro de que deseas cambiar la contraseña?");
                     if (confirmChange) {
-                        await updatePassword(user, newPassword);
-                        console.log('Contraseña actualizada en Firebase Authentication');
+                        if (newPassword.length >= 6) {
+                            await updatePassword(user, newPassword);
+                            console.log('Contraseña actualizada en Firebase Authentication');
+                        } else {
+                            alert("La nueva contraseña debe tener al menos 6 caracteres.");
+                            return;
+                        }
                     } else {
                         return;
                     }
@@ -126,7 +146,3 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
         alert("No estás autenticado. Inicia sesión primero.");
     }
 });
-
-
-
-
