@@ -132,10 +132,10 @@ signupForm.addEventListener("submit", (e) => {
             updateUserInterface(user);
             Swal.fire({
                 text: `Signup successful! Welcome, ${name}!`,
-                imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
+                imageUrl: "/asset/MemeAlerts/sign-up-successful.jpeg",
                 imageWidth: 400,
                 imageHeight: 200,
-                imageAlt: "the-success-kid.jpg"
+                imageAlt: "sign-up-successful.jpeg"
               });
         })
         .catch((error) => {

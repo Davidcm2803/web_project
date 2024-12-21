@@ -10,7 +10,13 @@ async function reauthenticateUser(password) {
         console.log("Reautenticación exitosa.");
     } catch (error) {
         console.error("Error al reautenticar: ", error);
-        alert("Error al reautenticar. Por favor, asegúrate de ingresar la contraseña correctamente.");
+        Swal.fire({
+            text: "Error al reautenticar. Por favor, asegúrate de ingresar la contraseña correctamente.",
+            imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+          });
     }
 }
 
@@ -78,17 +84,35 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-        alert("Por favor ingresa un correo electrónico válido.");
+        Swal.fire({
+            text: "Por favor ingresa un correo electrónico válido.",
+            imageUrl: "/asset/MemeAlerts/wrong-email.jpg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "wrong-email.jpg"
+          });
         return;
     }
 
     if (!fullname || !email || !phone) {
-        alert("Los campos obligatorios (Nombre, Email, Teléfono) son requeridos.");
+        Swal.fire({
+            text: "Los campos obligatorios (Nombre, Email, Teléfono) son requeridos.",
+            imageUrl: "/asset/MemeAlerts/peroaqui-nohay-nada.jpg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "peroaqui-nohay-nada.jpg"
+          });
         return;
     }
 
     if (newPassword && newPassword.length < 6) {
-        alert("La contraseña debe tener al menos 6 caracteres.");
+        Swal.fire({
+            text: "La contraseña debe tener al menos 6 caracteres.",
+            imageUrl: "/asset/MemeAlerts/6characters-for-pass.jpg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "6characters-for-pass.jpg"
+          });
         return;
     }
 
@@ -107,7 +131,13 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
                             await updatePassword(user, newPassword);
                             console.log('Contraseña actualizada en Firebase Authentication');
                         } else {
-                            alert("La nueva contraseña debe tener al menos 6 caracteres.");
+                            Swal.fire({
+                                text: "La nueva contraseña debe tener al menos 6 caracteres.",
+                                imageUrl: "/asset/MemeAlerts/6characters-for-pass.jpg",
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: "6characters-for-pass.jpg"
+                              });
                             return;
                         }
                     } else {
@@ -137,12 +167,30 @@ document.querySelector('#btnSave').addEventListener('click', async function (e) 
                 { merge: true }
             );
 
-            alert("Información guardada correctamente.");
+            Swal.fire({
+                text: "Información guardada correctamente.",
+                imageUrl: "/asset/MemeAlerts/the-success-kid.jpg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "the-success-kid.jpg"
+            });
         } catch (error) {
             console.error("Error al guardar los datos: ", error);
-            alert("Hubo un error al guardar los datos.");
+            Swal.fire({
+                text: "Hubo un error al guardar los datos.",
+                imageUrl: "/asset/MemeAlerts/errorrrrrrrrrrrrrrrrrrrrr.jpeg",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "errorrrrrrrrrrrrrrrrrrrrr.jpeg"
+              });
         }
     } else {
-        alert("No estás autenticado. Inicia sesión primero.");
+        Swal.fire({
+            text: "No estás autenticado. Inicia sesión primero.",
+            imageUrl: "/asset/MemeAlerts/por-favor-inicia-sesion.jpeg",
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "por-favor-inicia-sesion.jpeg"
+        });
     }
 });
