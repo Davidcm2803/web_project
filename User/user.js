@@ -1,133 +1,68 @@
-import { auth, db } from './firebaseConfig.js';
-import { doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js';
-import { updateEmail, updatePassword, updateProfile, reauthenticateWithCredential, EmailAuthProvider } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js';
+import { db, auth } from '../firebaseConfig.js';
+import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js'; // IMPORTAR AQUÍ
 
-async function reauthenticateUser(password) {
-    const user = auth.currentUser;
-    const credentials = EmailAuthProvider.credential(user.email, password);
+// Escuchar el estado de autenticación
+onAuthStateChanged(auth, (user) => {
+    const userDropdownButton = document.getElementById("dropdownUser");
+
+    if (user) {
+        // Si el usuario está autenticado, mostrar su nombre
+        const userName = user.displayName || user.email.split('@')[0];
+        userDropdownButton.innerHTML = `<i class="bi bi-person-circle"></i> ${userName}`;
+
+        // Llamar a la función para cargar el historial de compras
+        cargarHistorialDeCompras(user.uid);
+    } else {
+        // Si no hay usuario autenticado, mostrar "User"
+        userDropdownButton.innerHTML = `<i class="bi bi-person-circle"></i> User`;
+    }
+});
+
+// Función para cargar el historial de compras
+async function cargarHistorialDeCompras(userId) {
     try {
-        await reauthenticateWithCredential(user, credentials);
-        console.log("Reautenticación exitosa.");
+        const comprasRef = collection(db, 'compras', userId, 'comprados');
+        const querySnapshot = await getDocs(comprasRef);
+        const historialElement = document.getElementById('historial-compras');
+
+        if (querySnapshot.empty) {
+            historialElement.innerHTML = "<p>No tienes compras registradas.</p>";
+        } else {
+            historialElement.innerHTML = '';  // Limpiar contenido anterior
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const itemHtml = `
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <img src="${data.image}" class="card-img-top" alt="${data.title}">
+                            <div class="card-body">
+                                <h5 class="card-title">${data.title}</h5>
+                                <p><strong>Precio:</strong> ${data.price}</p>
+                                <p><strong>Fecha:</strong> ${data.date}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                historialElement.innerHTML += itemHtml;
+            });
+        }
     } catch (error) {
-        console.error("Error al reautenticar: ", error);
-        alert("Error al reautenticar. Por favor, asegúrate de ingresar la contraseña correctamente.");
+        console.error("Error al cargar el historial de compras:", error);
     }
 }
 
-auth.onAuthStateChanged(async (user) => {
-    console.log(user);
-
-    if (user) {
-        try {
-            const displayName = user.displayName || '';
-            console.log(displayName);
-
-            const userDocRef = doc(db, 'users', user.uid);
-            const userDoc = await getDoc(userDocRef);
-
-            if (!userDoc.exists()) {
-                await setDoc(userDocRef, {
-                    email: user.email || '',
-                    phone: '',
-                    destination: '',
-                    travelMode: '',
-                    budget: '',
-                });
-                console.log("Documento de usuario creado en Firestore");
-            }
-
-            document.getElementById('fullname').value = displayName || '';
-            document.getElementById('email').value = user.email || '';
-            document.getElementById('password').placeholder = "No modificar si no desea cambiar la contraseña";
-            const data = (await getDoc(userDocRef)).data();
-
-            document.getElementById('phone').value = data.phone || '';
-            document.getElementById('destination').value = data.destination || '';
-            document.getElementById('travelMode').value = data.travelMode || '';
-            document.getElementById('budget').value = data.budget || '';
-        } catch (error) {
-            console.error("Error al obtener o crear los datos: ", error);
-        }
-    } else {
-        console.log('Usuario no autenticado');
-    }
+const signOutButton = document.querySelector('.dropdown-item[href="#"]');
+signOutButton.addEventListener('click', () => {
+    signOut(auth).then(() => {
+        console.log("User logged out.");
+        // Redirigir a la página de inicio
+        window.location.href = '/index.html';
+    }).catch((error) => {
+        console.error("Error logging out:", error.message);
+    });
 });
 
-document.querySelector('#btnSave').addEventListener('click', async function (e) {
-    e.preventDefault();
 
-    const fullname = document.getElementById('fullname').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const destination = document.getElementById('destination').value;
-    const travelMode = document.getElementById('travelMode').value;
-    const budget = document.getElementById('budget').value;
-    const newPassword = document.getElementById('password').value;
 
-    // Validar correo electrónico
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Por favor ingresa un correo electrónico válido.");
-        return;
-    }
-
-    if (!fullname || !email || !phone) {
-        alert("Los campos obligatorios (Nombre, Email, Teléfono) son requeridos.");
-        return;
-    }
-
-    // Validación de longitud de contraseña
-    if (newPassword && newPassword.length < 6) {
-        alert("La contraseña debe tener al menos 6 caracteres.");
-        return;
-    }
-
-    const user = auth.currentUser;
-
-    if (user) {
-        try {
-            if (newPassword) {
-                const password = prompt("Por favor ingresa tu contraseña actual para proceder con el cambio.");
-                if (password) {
-                    await reauthenticateUser(password);
-
-                    const confirmChange = confirm("¿Estás seguro de que deseas cambiar la contraseña?");
-                    if (confirmChange) {
-                        await updatePassword(user, newPassword);
-                        console.log('Contraseña actualizada en Firebase Authentication');
-                    } else {
-                        return;
-                    }
-                }
-            }
-
-            if (email !== user.email) {
-                await updateEmail(user, email);
-                console.log('Correo electrónico actualizado en Firebase Authentication');
-            }
-
-            if (fullname !== user.displayName) {
-                await updateProfile(user, { displayName: fullname });
-                console.log('Nombre completo actualizado en Firebase Authentication');
-            }
-
-            await setDoc(
-                doc(db, 'users', user.uid),
-                {
-                    phone: phone,
-                    destination: destination,
-                    travelMode: travelMode,
-                    budget: budget,
-                },
-                { merge: true }
-            );
-
-            alert("Información guardada correctamente.");
-        } catch (error) {
-            console.error("Error al guardar los datos: ", error);
-            alert("Hubo un error al guardar los datos.");
-        }
-    } else {
-        alert("No estás autenticado. Inicia sesión primero.");
-    }
-});
